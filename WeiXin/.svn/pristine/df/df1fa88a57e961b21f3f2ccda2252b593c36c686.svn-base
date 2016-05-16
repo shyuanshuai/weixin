@@ -1,0 +1,11 @@
+package com.yuanshuai.weixin.db.service.Impl;
+
+import com.yuanshuai.weixin.db.dao.IUserDao;
+import com.yuanshuai.weixin.db.dao.impl.UserDaoImpl;
+
+public class UserService {
+	
+	private IUserDao dao = new UserDaoImpl();
+	
+
+}

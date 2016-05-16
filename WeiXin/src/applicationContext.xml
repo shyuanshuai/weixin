@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 定义数据源的信息 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="jdbcUrl">
+			<value>jdbc:mysql://localhost/weixin?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false</value>
+		</property>
+		<property name="user">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>11111111</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>80</value>
+		</property>
+		<property name="minPoolSize">
+			<value>1</value>
+		</property>
+		<property name="initialPoolSize">
+			<value>1</value>
+		</property>
+		<property name="maxIdleTime">
+			<value>20</value>
+		</property>
+	</bean>
+
+	<!-- 定义Hibernate的SessionFactory，SessionFactory使用的数据源为上面的数据源,指定了Hibernate的映射文件和配置信息 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/yuanshuai/weixin/beans/hbm/User.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- DaoBeans -->
+	<import resource="com/yuanshuai/weixin/resource/DaoBeans.xml"/>
+	<!-- ServiceBeans -->
+	<import resource="com/yuanshuai/weixin/resource/ServiceBeans.xml"/>
+	<!-- ActionBeans -->
+	<import resource="com/yuanshuai/weixin/resource/ActionBeans.xml"/>
+
+</beans>

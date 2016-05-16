@@ -1,0 +1,118 @@
+package com.ys.weixin.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.dom4j.DocumentException;
+
+import com.ys.weixin.entity.User;
+import com.ys.weixin.po.AccessToken;
+import com.ys.weixin.po.TextMessage;
+import com.ys.weixin.service.UserService;
+import com.ys.weixin.util.CheckUtil;
+import com.ys.weixin.util.MessageUtil;
+import com.ys.weixin.util.WeixinUtil;
+
+public class WeiXinServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String signature = req.getParameter("signature");
+		String timestamp = req.getParameter("timestamp");
+		String nonce = req.getParameter("nonce");
+		String echostr = req.getParameter("echostr");
+
+		PrintWriter out = resp.getWriter();
+		if (CheckUtil.checkSignature(signature, timestamp, nonce)) {
+			out.print(echostr);
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+
+		PrintWriter out = resp.getWriter();
+
+		try {
+			Map<String, String> map = MessageUtil.xmlToMap(req);
+			String toUserName = map.get("ToUserName");
+			String fromUserName = map.get("FromUserName");
+			// String createTime = map.get("CreateTime");
+			String msgType = map.get("MsgType");
+			String content = map.get("Content");
+			// String msgId = map.get("MsgId");
+
+			String message = null;
+
+			if ("text".equals(msgType)) {
+
+				if ("群发".equals(content)) {
+					fromUserName = "o77lBtze2rJ9-k-m1U9xTHzhk7Sk";
+				}
+
+				TextMessage text = new TextMessage();
+				text.setFromUserName(toUserName);
+				text.setToUserName(fromUserName);
+				text.setMsgType("text");
+				text.setCreateTime(new Date().getTime());
+				text.setContent("你发的信息是：" + content);
+				// text.setMsgId(msgId);
+
+				message = MessageUtil.textMessageToXml(text);
+
+				User user = new User(content, fromUserName, 0);
+				UserService.add(user);
+
+			} else if (MessageUtil.MESSAGE_EVNET.equals(msgType)) {
+				String eventType = map.get("Event");
+				if (MessageUtil.MESSAGE_SUBSCRIBE.equals(eventType)) {
+					message = MessageUtil.initText(toUserName, fromUserName,
+							"点击事件");
+				} else if (MessageUtil.MESSAGE_CLICK.equals(eventType)) {
+					AccessToken token = WeixinUtil.getAccessToken();
+					System.out.println("Token:" + token.getToken());
+					System.out.println("有效时间：" + token.getExpiresIn());
+					message = MessageUtil.initText(toUserName, fromUserName,
+							token.getToken());
+					System.out.println(toUserName);
+					System.out.println(fromUserName);
+					System.out.println();
+				} else if (MessageUtil.MESSAGE_VIEW.equals(eventType)) {
+					String url = map.get("EventKey");
+					message = MessageUtil.initText(toUserName, fromUserName,
+							url);
+				} else if (MessageUtil.MESSAGE_SCANCODE.equals(eventType)) {
+					String key = map.get("EventKey");
+					message = MessageUtil.initText(toUserName, fromUserName,
+							key);
+				}
+			} else if (MessageUtil.MESSAGE_LOCATION.equals(msgType)) {
+				String label = map.get("Label");
+				message = MessageUtil.initText(toUserName, fromUserName, label);
+			}
+			out.print(message);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		} finally {
+			out.close();
+		}
+	}
+}

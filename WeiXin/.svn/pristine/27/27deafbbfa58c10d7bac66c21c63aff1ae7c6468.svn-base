@@ -1,0 +1,29 @@
+package com.ys.weixin.service;
+
+import java.util.List;
+
+import com.ys.weixin.dao.UserDao;
+import com.ys.weixin.dao.impl.UserDaoImpl;
+import com.ys.weixin.entity.User;
+
+public class UserService {
+	
+	private static UserDao dao = new UserDaoImpl();
+	
+	/**
+	 * 新增用户
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public static boolean add(User user) {
+		
+		return dao.add(user);
+	}
+	
+	public static List<User> queryAllUser() {
+		
+		return dao.queryAllUser();
+	}
+
+}

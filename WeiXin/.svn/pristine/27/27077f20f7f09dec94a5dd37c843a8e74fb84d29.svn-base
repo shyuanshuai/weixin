@@ -1,0 +1,5 @@
+package com.yuanshuai.weixin.db.dao;
+
+public interface IUserDao extends IBaseDao {
+
+}

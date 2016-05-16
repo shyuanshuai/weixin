@@ -1,0 +1,72 @@
+package com.yuanshuai.weixin.db.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.yuanshuai.weixin.db.HibernateSessionFactory;
+import com.yuanshuai.weixin.db.dao.IBaseDao;
+
+/**
+ * 通用增删改查实现类
+ * 
+ * @author YuanShuai
+ *
+ */
+public class BaseDaoImpl implements IBaseDao {
+
+	protected Session session = HibernateSessionFactory.getSession();
+
+	@Override
+	public boolean insert(Object object) {
+		try {
+			Transaction trans = session.beginTransaction();
+			session.save(object);
+			trans.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(Object object) {
+		try {
+			Transaction trans = session.beginTransaction();
+			session.delete(object);
+			trans.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean modify(Object object) {
+		try {
+			Transaction trans = session.beginTransaction();
+			session.update(object);
+			trans.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public Object findById(Class<?> obj, String id) {
+		return session.get(obj, id);
+	}
+
+	@Override
+	public List<?> findAll(Class<?> obj) {
+		Criteria criteria = session.createCriteria(obj);
+		return criteria.list();
+	}
+
+}

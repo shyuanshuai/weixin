@@ -1,0 +1,13 @@
+package com.ys.weixin.dao;
+
+import java.util.List;
+
+import com.ys.weixin.entity.User;
+
+public interface UserDao {
+	
+	public boolean add(User user);
+	
+	public List<User> queryAllUser();
+
+}
