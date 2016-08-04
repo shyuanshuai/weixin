@@ -15,8 +15,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.util.Date;
 
-import net.sf.json.JSONObject;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -32,11 +30,12 @@ import com.yuanshuai.weixin.po.ClickButton;
 import com.yuanshuai.weixin.po.Menu;
 import com.yuanshuai.weixin.po.ViewButton;
 
+import net.sf.json.JSONObject;
+
 /**
  * ΢�Ź�����
  * 
  */
-@SuppressWarnings("deprecation")
 public class WeixinUtil {
 	private static final String APPID = "wxa46d2db04e186ce3";
 	private static final String APPSECRET = "625031f35de0a87ab8ebf9f772651010";
@@ -62,7 +61,6 @@ public class WeixinUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("resource")
 	public static JSONObject doGetStr(String url) throws ParseException, IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet(url);
@@ -85,7 +83,6 @@ public class WeixinUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@SuppressWarnings("resource")
 	public static JSONObject doPostStr(String url, String outStr) throws ParseException, IOException {
 		DefaultHttpClient client = new DefaultHttpClient();
 		HttpPost httpost = new HttpPost(url);
@@ -109,8 +106,8 @@ public class WeixinUtil {
 	 * @throws NoSuchProviderException
 	 * @throws KeyManagementException
 	 */
-	public static String upload(String filePath, String accessToken, String type) throws IOException,
-			NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
+	public static String upload(String filePath, String accessToken, String type)
+			throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
 		File file = new File(filePath);
 		if (!file.exists() || !file.isFile()) {
 			throw new IOException("异常");
