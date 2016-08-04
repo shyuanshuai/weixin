@@ -1,7 +1,0 @@
-package com.yuanshuai.weixin.db.dao;
-
-public interface IUserDao extends IBaseDao {
-
-	public Object findByOpenId(String openId);
-	
-}

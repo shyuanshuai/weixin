@@ -1,7 +1,0 @@
-package com.yuanshuai.weixin.db.dao.impl;
-
-import com.yuanshuai.weixin.db.dao.IUserDao;
-
-public class UserDaoImpl extends BaseDaoImpl implements IUserDao {
-
-}
