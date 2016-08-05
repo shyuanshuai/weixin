@@ -72,10 +72,10 @@
 	</aop:config>
 
 	<!-- DaoBeans -->
-	<import resource="com/yuanshuai/weixin/resource/DaoBeans.xml"/>
+	<import resource="com/yuanshuai/weixin/resource/SpringDaoBeans.xml"/>
 	<!-- ServiceBeans -->
-	<import resource="com/yuanshuai/weixin/resource/ServiceBeans.xml"/>
+	<import resource="com/yuanshuai/weixin/resource/SpringServiceBeans.xml"/>
 	<!-- ActionBeans -->
-	<import resource="com/yuanshuai/weixin/resource/ActionBeans.xml"/>
+	<import resource="com/yuanshuai/weixin/resource/SpringActionBeans.xml"/>
 
 </beans>

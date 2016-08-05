@@ -20,6 +20,7 @@ import com.yuanshuai.weixin.po.AccessToken;
 import com.yuanshuai.weixin.po.RobotMessage;
 import com.yuanshuai.weixin.po.RobotMessageDetail;
 import com.yuanshuai.weixin.po.TextMessage;
+import com.yuanshuai.weixin.service.IUserService;
 import com.yuanshuai.weixin.service.impl.UserServiceImpl;
 import com.yuanshuai.weixin.servlet.util.CheckSignature;
 import com.yuanshuai.weixin.servlet.util.HttpRequest;
@@ -30,9 +31,9 @@ public class WeiXinServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private UserServiceImpl userService;
+	private IUserService userService;
 
-	public void setUserService(UserServiceImpl userService) {
+	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
 
@@ -148,19 +149,24 @@ public class WeiXinServlet extends HttpServlet {
 					if (userService.adjustRobot(fromUserName)) {
 						User user = userService.findByOpenId(fromUserName);
 
-						String params = "key=e1fd4db2cdbd77bc3d90bef7ab6b0d96&info=" + content + "&userid=" + user.getId();
-						RobotMessage robotMessage = HttpRequest.getRobotMessageByPost("http://www.tuling123.com/openapi/api", params);
+						String params = "key=e1fd4db2cdbd77bc3d90bef7ab6b0d96&info=" + content + "&userid="
+								+ user.getId();
+						RobotMessage robotMessage = HttpRequest
+								.getRobotMessageByPost("http://www.tuling123.com/openapi/api", params);
 						if ("100000".equals(robotMessage.getCode())) {
 							toUserContent = robotMessage.getText();
 						} else if ("200000".equals(robotMessage.getCode())) {
-							toUserContent += "<a href='" + robotMessage.getUrl() + "'>" + robotMessage.getText() + "</a>";
+							toUserContent += "<a href='" + robotMessage.getUrl() + "'>" + robotMessage.getText()
+									+ "</a>";
 						} else if ("302000".equals(robotMessage.getCode())) {
 							for (RobotMessageDetail detail : robotMessage.getList()) {
-								toUserContent += "<a href='" + detail.getDetailurl() + "'>" + detail.getArticle() + "</a>\n";
+								toUserContent += "<a href='" + detail.getDetailurl() + "'>" + detail.getArticle()
+										+ "</a>\n";
 							}
 						} else if ("308000".equals(robotMessage.getCode())) {
 							for (RobotMessageDetail detail : robotMessage.getList()) {
-								toUserContent += "<a href='" + detail.getDetailurl() + "'>" + detail.getName() + "</a>\n";
+								toUserContent += "<a href='" + detail.getDetailurl() + "'>" + detail.getName()
+										+ "</a>\n";
 								toUserContent += detail.getInfo() + "\n";
 							}
 						} else {
