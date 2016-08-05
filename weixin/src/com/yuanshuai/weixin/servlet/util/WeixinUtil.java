@@ -1,4 +1,4 @@
-package com.yuanshuai.weixin.servletUtil;
+package com.yuanshuai.weixin.servlet.util;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

@@ -1,4 +1,4 @@
-package com.yuanshuai.weixin.serviceImpl;
+package com.yuanshuai.weixin.service.impl;
 
 import com.yuanshuai.weixin.beans.User;
 import com.yuanshuai.weixin.dao.IUserDao;

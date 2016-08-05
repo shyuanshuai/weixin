@@ -1,4 +1,4 @@
-package com.yuanshuai.weixin.daoImpl;
+package com.yuanshuai.weixin.dao.impl;
 
 import java.util.List;
 

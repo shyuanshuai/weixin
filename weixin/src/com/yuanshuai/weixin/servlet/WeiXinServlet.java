@@ -20,11 +20,11 @@ import com.yuanshuai.weixin.po.AccessToken;
 import com.yuanshuai.weixin.po.RobotMessage;
 import com.yuanshuai.weixin.po.RobotMessageDetail;
 import com.yuanshuai.weixin.po.TextMessage;
-import com.yuanshuai.weixin.serviceImpl.UserServiceImpl;
-import com.yuanshuai.weixin.servletUtil.CheckSignature;
-import com.yuanshuai.weixin.servletUtil.HttpRequest;
-import com.yuanshuai.weixin.servletUtil.MessageUtil;
-import com.yuanshuai.weixin.servletUtil.WeixinUtil;
+import com.yuanshuai.weixin.service.impl.UserServiceImpl;
+import com.yuanshuai.weixin.servlet.util.CheckSignature;
+import com.yuanshuai.weixin.servlet.util.HttpRequest;
+import com.yuanshuai.weixin.servlet.util.MessageUtil;
+import com.yuanshuai.weixin.servlet.util.WeixinUtil;
 
 public class WeiXinServlet extends HttpServlet {
 

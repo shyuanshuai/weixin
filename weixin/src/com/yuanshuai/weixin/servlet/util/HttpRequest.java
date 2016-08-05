@@ -1,4 +1,4 @@
-package com.yuanshuai.weixin.servletUtil;
+package com.yuanshuai.weixin.servlet.util;
 
 import java.util.HashMap;
 import java.util.Map;
