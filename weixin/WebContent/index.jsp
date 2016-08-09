@@ -15,7 +15,6 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/blog.css" rel="stylesheet">
-    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
 
   </head>
 
@@ -149,7 +148,7 @@
     </div><!-- /.container -->
 
     <footer class="blog-footer">
-      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p></p>
       <p>
         <a href="#">Back to top</a>
       </p>
