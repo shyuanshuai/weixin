@@ -62,7 +62,7 @@ public class WeiXinServlet extends HttpServlet {
 			User obj = new User();
 			obj.setOpenId(fromUserName);
 
-			userService.addUser(obj);
+			userService.save(obj);
 
 			String message = null;
 
@@ -110,7 +110,7 @@ public class WeiXinServlet extends HttpServlet {
 
 					String toUserContent = "欢迎使用聊天机器人！如想退出聊天请输入exit";
 
-					if (!userService.enterRobot(fromUserName)) {
+					if (!userService.updateRobotEnter(fromUserName)) {
 						toUserContent = "进入聊天室失败！！";
 					}
 
@@ -126,7 +126,7 @@ public class WeiXinServlet extends HttpServlet {
 
 					String toUserContent = "你已退出聊天机器人！";
 
-					if (!userService.exitRobot(fromUserName)) {
+					if (!userService.updateRobotExit(fromUserName)) {
 						toUserContent = "退出失败！";
 					}
 
@@ -134,7 +134,7 @@ public class WeiXinServlet extends HttpServlet {
 					message = MessageUtil.textMessageToXml(text);
 				} else {
 					String toUserContent = "";
-					if (userService.adjustRobot(fromUserName)) {
+					if (userService.getRoboted(fromUserName)) {
 						User user = userService.findByOpenId(fromUserName);
 
 						String params = "key=e1fd4db2cdbd77bc3d90bef7ab6b0d96&info=" + content + "&userid="
@@ -162,7 +162,7 @@ public class WeiXinServlet extends HttpServlet {
 						}
 					} else {
 						toUserContent += "你好！欢迎关注盐城轶伦网络科技有限公司官方微信，下面是我们的导航，回复【】内的数字即可进入相应的模块:";
-						toUserContent += "\n【1】<a href='http://www.baidu.com'>盐城轶伦网络科技有限公司简介</a>";
+						toUserContent += "\n【1】<a href='http://121.196.206.158/'>盐城轶伦网络科技有限公司简介</a>";
 						toUserContent += "\n【2】公司企业文化";
 						toUserContent += "\n【3】业务范围";
 						toUserContent += "\n【4】校园文化";
