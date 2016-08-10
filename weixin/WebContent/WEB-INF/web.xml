@@ -14,7 +14,7 @@
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:applicationContext.xml</param-value>
+    <param-value>/WEB-INF/classes/applicationContext.xml</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -44,11 +44,11 @@
     <url-pattern>*.action</url-pattern>
   </filter-mapping>
   <servlet>
-    <servlet-name>weixinServlet</servlet-name>
-    <servlet-class>com.yuanshuai.weixin.servlet.WeiXinServlet</servlet-class>
+    <servlet-name>WeiXinServlet</servlet-name>
+    <servlet-class>com.yuanshuai.weixin.servlet.ServletToBeanProxy</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>weixinServlet</servlet-name>
+    <servlet-name>WeiXinServlet</servlet-name>
     <url-pattern>/wx.do</url-pattern>
   </servlet-mapping>
 </web-app>

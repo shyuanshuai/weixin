@@ -5,15 +5,12 @@ import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.yuanshuai.weixin.beans.User;
 import com.yuanshuai.weixin.po.AccessToken;
@@ -21,7 +18,6 @@ import com.yuanshuai.weixin.po.RobotMessage;
 import com.yuanshuai.weixin.po.RobotMessageDetail;
 import com.yuanshuai.weixin.po.TextMessage;
 import com.yuanshuai.weixin.service.IUserService;
-import com.yuanshuai.weixin.service.impl.UserServiceImpl;
 import com.yuanshuai.weixin.servlet.util.CheckSignature;
 import com.yuanshuai.weixin.servlet.util.HttpRequest;
 import com.yuanshuai.weixin.servlet.util.MessageUtil;
@@ -35,14 +31,6 @@ public class WeiXinServlet extends HttpServlet {
 
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
-	}
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		ServletContext servletContext = this.getServletContext();
-		WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-		userService = (UserServiceImpl) ctx.getBean("userService");
 	}
 
 	@Override
