@@ -44,11 +44,11 @@
     <url-pattern>*.action</url-pattern>
   </filter-mapping>
   <servlet>
-    <servlet-name>WeiXinServlet</servlet-name>
+    <servlet-name>weiXinServlet</servlet-name>
     <servlet-class>com.yuanshuai.weixin.servlet.ServletToBeanProxy</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>WeiXinServlet</servlet-name>
+    <servlet-name>weiXinServlet</servlet-name>
     <url-pattern>/wx.do</url-pattern>
   </servlet-mapping>
 </web-app>
