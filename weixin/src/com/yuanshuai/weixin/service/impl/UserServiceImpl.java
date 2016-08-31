@@ -13,7 +13,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean addUser(User user) {
+	public boolean save(User user) {
 		User obj = (User) userDao.findByOpenId(user.getOpenId());
 		if (obj == null) {
 			return userDao.insert(user);
@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean adjustRobot(String openId) {
+	public boolean getRoboted(String openId) {
 		User user = (User) userDao.findByOpenId(openId);
 		if (user == null) {
 			return false;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean enterRobot(String openId) {
+	public boolean updateRobotEnter(String openId) {
 		User user = (User) userDao.findByOpenId(openId);
 		if (user == null) {
 			return false;
@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean exitRobot(String openId) {
+	public boolean updateRobotExit(String openId) {
 		User user = (User) userDao.findByOpenId(openId);
 		if (user == null) {
 			return false;

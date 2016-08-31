@@ -12,11 +12,11 @@ public class User {
 	private String note;
 
 	public User() {
-		this.id = UUID.randomUUID().toString().replaceAll("-", "");
+		this.id = UUID.randomUUID().toString();
 		this.name = "";
 		this.openId = "";
 		this.robot = false;
-		this.addTime = 0;
+		this.addTime = System.currentTimeMillis();
 		this.note = "";
 	}
 
